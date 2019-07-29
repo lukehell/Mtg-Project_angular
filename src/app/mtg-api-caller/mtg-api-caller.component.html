@@ -1,0 +1,20 @@
+<h1>Magic Cards</h1>
+
+<div>
+    <label for="user_textbox">Cartas: Nome</label>
+    <textarea id="user_textbox" rows="12"
+    [(ngModel)] ="parametro.cardname"></textarea>
+</div>
+
+<button (click) = "getCards()">Get Cards</button>
+<div *ngIf="cards">
+    <ul class="cards">
+        <li *ngFor="let card of cards">
+            <span class="Card">{{card.name}}</span>
+        </li>
+    </ul>
+    <p>Test</p>    
+</div>
+<div *ngIf="parametro.cardname">
+    <h1>{{ parametro.cardname }}</h1>
+</div>
