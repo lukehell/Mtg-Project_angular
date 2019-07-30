@@ -11,9 +11,15 @@
     <ul class="cards">
         <li *ngFor="let card of cards">
             <span class="Card">{{card.name}}</span>
+            <br>
+            <span class="CMC">{{card.cmc}}</span>
+            <br>
+            <img src={{card.imageUrl}}>
+            <br>
+            <span *ngFor="let color of card.colors">{{color}} </span>
+            <br>     
         </li>
-    </ul>
-    <p>Test</p>    
+    </ul>  
 </div>
 <div *ngIf="parametro.cardname">
     <h1>{{ parametro.cardname }}</h1>

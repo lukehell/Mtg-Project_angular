@@ -8,8 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MtgCallerService {
-  
-  private mtgUrl = 'https://api.magicthegathering.io/v1/cards?';
+  configs: RootObject;
+  private mtgUrl = 'https://api.magicthegathering.io/v1/cards?name=';
 
   //getCard(name: string): Observable<Card>{
   //  return this.http.get<Card>(this.mtgUrl+name);
@@ -19,23 +19,40 @@ export class MtgCallerService {
 
   getCards(names: string[]): Observable<My_Card[]>{
     var full_names = new String("");
-    var my_cards_list: My_Card[];
-    var aux_card = new My_Card();
+    var my_cards_list: My_Card[] = [];
+    
+    //Forma funcional, mas não otimizada.
     names.forEach(name => {
-      full_names += name+"|";
-      var json_loader = this.http.get<RootObject>(this.mtgUrl+full_names);
-      json_loader.forEach(root =>{
-        root.cards.forEach(card=>{
+      //full_names += name+"|";
+      var json_loader = this.http.get<RootObject>(this.mtgUrl+name).subscribe(
+        (ro:RootObject) => {
+          var aux_card: My_Card = new My_Card();
+          aux_card.name = ro.cards[0].name;
+          aux_card.cmc = ro.cards[0].cmc;
+          aux_card.colors = ro.cards[0].colors;
+          aux_card.imageUrl = ro.cards[0].imageUrl;
+          aux_card.printings = ro.cards[0].printings;
+          my_cards_list.push(aux_card);
+        }
+      )
+    })
+
+    /*
+    var json_loader = this.http.get<RootObject>(this.mtgUrl+full_names).subscribe(
+      (ro:RootObject) => {
+        ro.cards.forEach(card =>
+        {
+          var aux_card: My_Card = new My_Card();
           aux_card.name = card.name;
           aux_card.cmc = card.cmc;
           aux_card.colors = card.colors;
           aux_card.printings = card.printings;
           aux_card.imageUrl = card.imageUrl;
-        my_cards_list.push(aux_card);
+          my_cards_list.push(aux_card);
         })
-      })
-      
-    })
+      }
+    );
+    */
     return of(my_cards_list);
   }
   
