@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { My_Card } from './card';
-import { Observable, of, from } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Ruling, ForeignName, Legality, Card, RootObject } from './card_loader';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 

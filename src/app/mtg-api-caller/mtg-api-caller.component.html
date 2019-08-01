@@ -17,7 +17,12 @@
             <img src={{card.imageUrl}}>
             <br>
             <span *ngFor="let color of card.colors">{{color}} </span>
-            <br>     
+            <br>
+            <!--
+            <button (click)="insertCard({{card.name}}, {{card.imageUrl}})">
+                Insert this card onto the database
+            </button>
+            --> 
         </li>
     </ul>  
 </div>
